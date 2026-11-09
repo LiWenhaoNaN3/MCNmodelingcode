@@ -9,6 +9,10 @@ FONT_CANDIDATES = [
     r"C:\Windows\Fonts\msyhl.ttc",
     r"C:\Windows\Fonts\simhei.ttf",
     r"C:\Windows\Fonts\simsun.ttc",
+    # Linux / CI: 常见中文字体（任一存在即可）
+    r"/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
+    r"/usr/share/fonts/truetype/droid/DroidSansFallbackFull.ttf",
+    r"/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc",
 ]
 _font_path = next((p for p in FONT_CANDIDATES if os.path.exists(p)), None)
 

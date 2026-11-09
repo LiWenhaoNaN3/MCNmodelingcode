@@ -1,21 +1,32 @@
 # -*- coding: utf-8 -*-
-"""把 v2 的 7 个模块合并成单文件 model.py。
+"""把 src/ 的 7 个模块合并成单文件 model.py。
 
-做三类结构化改写:
-  1. 去掉对本地模块的 import, 并把 config./eos./analyze./plotlib. 前缀去掉
+做四类结构化改写:
+  1. 去掉对本地模块的 import（含 `from . import ...`），并把
+     config./eos./analyze./plotlib. 前缀去掉
   2. 各模块的 main() 改名, 避免冲突, 最后统一由 cli() 调度
   3. figures.py 顶层的 PROF/TER/VEH 改为惰性初始化(否则 check 模式也要 cache)
+  4. 把各模块的 ROOT 改成生成文件头部的 HERE（生成物在仓库根）
 """
 import os
 import re
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, "model.py")
+HERE = os.path.dirname(os.path.abspath(__file__))   # build/
+ROOT = os.path.dirname(HERE)                        # repo root
+SRC = os.path.join(ROOT, "src")
+OUT = os.path.join(ROOT, "model.py")
 
 
 def read(name):
-    with open(os.path.join(HERE, name), encoding="utf-8") as f:
+    with open(os.path.join(SRC, name), encoding="utf-8") as f:
         return f.read()
+
+
+def fix_root(src):
+    """生成物在仓库根, 所以 src/ 里的 ROOT=... 要改成 HERE。"""
+    return src.replace(
+        "ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))",
+        "ROOT = HERE")
 
 
 def strip_tail(src):
@@ -41,6 +52,10 @@ def strip_local_imports(src):
             continue
         if re.match(r"^from (config|eos|analyze|fetch|figures|plotlib)\b", s):
             continue
+        if re.match(r"^from \. import\b", s):
+            continue
+        if re.match(r"^from src\b", s):
+            continue
         out.append(ln)
     return "\n".join(out)
 
@@ -54,7 +69,7 @@ def strip_prefix(src):
 HEADER = '''# -*- coding: utf-8 -*-
 """2024 MCM Problem B 重建版 —— 单文件模型
 
-由 v2/ 的 7 个模块合并而成, 内容与各模块逐字一致(只做了导入与命名改写)。
+由 src/ 的 7 个模块合并而成（build/build_single.py 生成）。
 全部环境量来自 ETOPO 2022 与 HYCOM GLBy0.08 实测数据;
 查不到的量(Δρ, μ_s, z0, W, v, w0)不赋值, 留作函数参数。
 
@@ -89,12 +104,12 @@ parts.append("\n\n# " + "=" * 70 + "\n# 2. eos —— 海水密度与声速\n# "
 parts.append(strip_tail(strip_local_imports(read("eos.py"))))
 
 parts.append("\n\n# " + "=" * 70 + "\n# 3. fetch —— 数据下载\n# " + "=" * 70 + "\n\n")
-f = strip_tail(strip_local_imports(read("fetch.py")))
+f = fix_root(strip_tail(strip_local_imports(read("fetch.py"))))
 f = strip_prefix(f).replace("def main():", "def fetch_main():")
 parts.append(f)
 
 parts.append("\n\n# " + "=" * 70 + "\n# 4. analyze —— 全部推导\n# " + "=" * 70 + "\n\n")
-a = strip_tail(strip_local_imports(read("analyze.py")))
+a = fix_root(strip_tail(strip_local_imports(read("analyze.py"))))
 a = strip_prefix(a).replace("def main():", "def analyze_main():")
 parts.append(a)
 
@@ -102,10 +117,9 @@ parts.append("\n\n# " + "=" * 70 + "\n# 5. plotlib —— 仅用 Pillow 的绘�
 parts.append(strip_tail(strip_local_imports(read("plotlib.py"))))
 
 parts.append("\n\n# " + "=" * 70 + "\n# 6. figures —— 四张图\n# " + "=" * 70 + "\n\n")
-g = strip_tail(strip_local_imports(read("figures.py")))
+g = fix_root(strip_tail(strip_local_imports(read("figures.py"))))
 g = strip_prefix(g)
 g = g.replace("def main():", "def figures_main():")
-# 顶层全局 -> 惰性初始化
 g = g.replace(
     "PROF = Profile(z0=300.0)\nTER = Terrain()\nVEH = vehicle(float(np.interp(PROF.z0, PROF.z, PROF.rho)))",
     "PROF = None\nTER = None\nVEH = None\n\n\n"

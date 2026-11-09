@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """2024 MCM Problem B 重建版 —— 单文件模型
 
-由 v2/ 的 7 个模块合并而成, 内容与各模块逐字一致(只做了导入与命名改写)。
+由 src/ 的 7 个模块合并而成（build/build_single.py 生成）。
 全部环境量来自 ETOPO 2022 与 HYCOM GLBy0.08 实测数据;
 查不到的量(Δρ, μ_s, z0, W, v, w0)不赋值, 留作函数参数。
 
@@ -210,8 +210,8 @@ import urllib.request
 import numpy as np
 
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-CACHE = os.path.join(HERE, "cache")
+ROOT = HERE
+CACHE = os.path.join(ROOT, "cache")
 
 
 def _get(url, tries=4, timeout=180):
@@ -354,8 +354,8 @@ import os
 import numpy as np
 
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-CACHE = os.path.join(HERE, "cache")
+ROOT = HERE
+CACHE = os.path.join(ROOT, "cache")
 
 
 # ================= 数据 =================
@@ -561,6 +561,10 @@ FONT_CANDIDATES = [
     r"C:\Windows\Fonts\msyhl.ttc",
     r"C:\Windows\Fonts\simhei.ttf",
     r"C:\Windows\Fonts\simsun.ttc",
+    # Linux / CI: 常见中文字体（任一存在即可）
+    r"/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
+    r"/usr/share/fonts/truetype/droid/DroidSansFallbackFull.ttf",
+    r"/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc",
 ]
 _font_path = next((p for p in FONT_CANDIDATES if os.path.exists(p)), None)
 
@@ -675,8 +679,8 @@ import os
 import numpy as np
 
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-FIGS = os.path.join(HERE, "figs")
+ROOT = HERE
+FIGS = os.path.join(ROOT, "figs")
 os.makedirs(FIGS, exist_ok=True)
 
 PROF = None

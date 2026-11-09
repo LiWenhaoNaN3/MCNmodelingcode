@@ -8,10 +8,10 @@ import urllib.request
 
 import numpy as np
 
-import config
+from . import config
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-CACHE = os.path.join(HERE, "cache")
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CACHE = os.path.join(ROOT, "cache")
 
 
 def _get(url, tries=4, timeout=180):

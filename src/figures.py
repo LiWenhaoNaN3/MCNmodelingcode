@@ -4,12 +4,10 @@ import os
 
 import numpy as np
 
-import analyze
-import config
-import plotlib
+from . import analyze, config, plotlib
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-FIGS = os.path.join(HERE, "figs")
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FIGS = os.path.join(ROOT, "figs")
 os.makedirs(FIGS, exist_ok=True)
 
 PROF = analyze.Profile(z0=300.0)
