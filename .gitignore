@@ -1,0 +1,11 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# 运行产物（可由 run.py 重新生成）
+*.log
+
+# 说明：cache/ 与 figs/ 是否入库自行决定
+#   入库   -> 仓库离线可复现（约 420 KB）
+#   不入库 -> 需联网跑一次 python model.py fetch
+# 当前选择保留两者，仓库自包含。
