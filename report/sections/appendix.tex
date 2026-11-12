@@ -1,0 +1,61 @@
+% ============================================================
+% 附录
+% ============================================================
+\section*{附录 A：AI 使用报告}
+\addcontentsline{toc}{section}{附录 A：AI 使用报告}
+\markboth{附录 A：AI 使用报告}{}
+
+按 MCM 规则，现说明本文中人工智能工具的使用情况。
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{@{}p{0.16\textwidth}p{0.30\textwidth}p{0.44\textwidth}@{}}
+\toprule
+用途 & 工具/方式 & 人工核验\\
+\midrule
+代码实现 & 使用 AI 辅助编写 Python 代码（数据下载、数值模型、搜索仿真、绘图） & 
+所有方程、参数、单位由队员逐项推导与检查；代码与解析解交叉验证（表 10.1）\\
+\addlinespace
+数据处理 & 使用 AI 辅助编写 ETOPO/HYCOM 数据下载与解析脚本 & 
+下载数据与公开数据源核对；深度/流速量级与文献对照\\
+\addlinespace
+文献调研 & 使用 AI 辅助检索潜水器参数、声呐方程与搜索理论背景 & 
+所有引用文献由队员阅读原文确认（见参考文献）\\
+\addlinespace
+文字与图表 & 使用 AI 辅助生成图表代码与报告初稿的结构 & 
+所有数值由代码输出直接引用，未人工编造数据；文字由队员通读修改\\
+\addlinespace
+禁止事项 & 未使用 AI 生成实验数据、未使用 AI 代替模型验证 & —\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{声明：}本文模型、参数、结果均来自仓库中可复现代码的实际运行；
+AI 工具仅作为编程与写作辅助，所有科学内容由参赛队员负责。
+
+\section*{附录 B：代码结构与复现}
+\addcontentsline{toc}{section}{附录 B：代码结构与复现}
+\markboth{附录 B：代码结构与复现}{}
+
+\noindent 仓库 \texttt{MCNmodelingcode/} 的关键模块：
+\texttt{config.py}（全部参数）、\texttt{fetch.py}（ETOPO/HYCOM 下载）、
+\texttt{data.py}（地形/剖面/四维流场插值）、\texttt{eos.py}（EOS-80）、
+\texttt{locate.py}（失效树 + 垂向解析解 + 输运 + 海底滑移）、
+\texttt{upper.py}（上层初始位置）、\texttt{equipment.py}（装备与成本）、
+\texttt{search.py}（探测/规划/贝叶斯/协调）、\texttt{multiveh.py}（多船 15 组合）、
+\texttt{locate\_stats.py}（$A_{50}/A_{95}$ 统计）、\texttt{figs\_*.py}（图件）。
+
+\noindent 复现命令：
+\begin{verbatim}
+python run.py fetch && python run.py fetch4d   # 下载数据 (联网)
+python run.py upper && python run.py truth     # 30 000 粒子轨迹 (~10 s)
+python run.py locate && python run.py search   # 定位统计 + 7 方案 (~3 min)
+python run.py delay && python run.py multi     # 延迟敏感性 + 15 组合 (~3 min)
+python run.py carib                            # 加勒比海外推
+\end{verbatim}
+
+\noindent 关键结果文件：\texttt{data/定位不确定性.csv}、\texttt{data/搜索方案对比.csv}、
+\texttt{data/多船多AUV组合.csv}、\texttt{data/搜救延迟敏感性.csv}、
+\texttt{data/*\_carib.csv}；全部图件在 \texttt{figs/}（PNG + PDF）。
+随机种子固定（\texttt{seed=7}），数值可完全复现。
+

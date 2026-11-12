@@ -1,0 +1,75 @@
+\contentsline {section}{\numberline {1}问题重述与建模思路}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}题目任务}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}三个关键判断}{3}{subsection.1.2}%
+\contentsline {paragraph}{判断一：这是“搜索问题”，不是“轨迹预测问题”。}{3}{paragraph*.2}%
+\contentsline {paragraph}{判断二：搜救开始时位置并非完全未知。}{3}{paragraph*.3}%
+\contentsline {paragraph}{判断三：决策变量是“装备组合 + 响应时间”，而不是单一装备。}{3}{paragraph*.4}%
+\contentsline {subsection}{\numberline {1.3}分层架构}{3}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}本文贡献}{4}{subsection.1.4}%
+\contentsline {section}{\numberline {2}模型假设与符号}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}模型假设}{4}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}符号表}{5}{subsection.2.2}%
+\contentsline {section}{\numberline {3}数据与参数}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}地形 (ETOPO 2022)}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}流场与温盐剖面 (HYCOM GLBy0.08)}{6}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}潜水器参数}{7}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}失效模式与先验}{7}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}数据来源汇总}{8}{subsection.3.5}%
+\contentsline {section}{\numberline {4}定位模型：失联后的位置演化}{8}{section.4}%
+\contentsline {subsection}{\numberline {4.1}总体框架}{8}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}垂向动力学}{8}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}浮力异常与等效球}{8}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}水平输运}{9}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}海底接触与库仑滑移}{9}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}数值算法}{9}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}压溃的事后统计}{9}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}验证}{9}{subsection.4.8}%
+\contentsline {section}{\numberline {5}位置不确定性：从 100 m 圆柱到数百平方公里}{10}{section.5}%
+\contentsline {subsection}{\numberline {5.1}30\,000 条轨迹的分支构成}{10}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}包含域面积}{10}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}三个直接结论}{11}{subsection.5.3}%
+\contentsline {section}{\numberline {6}搜索模型：探测、规划与贝叶斯更新}{11}{section.6}%
+\contentsline {subsection}{\numberline {6.1}探测模型}{11}{subsection.6.1}%
+\contentsline {paragraph}{声呐方程.}{11}{paragraph*.18}%
+\contentsline {paragraph}{覆盖与探测概率.}{12}{paragraph*.19}%
+\contentsline {paragraph}{装备能力矩阵.}{12}{paragraph*.20}%
+\contentsline {subsection}{\numberline {6.2}贝叶斯更新与“存活概率”}{12}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}滚动规划与协调}{12}{subsection.6.3}%
+\contentsline {paragraph}{规划评分.}{12}{paragraph*.22}%
+\contentsline {paragraph}{协调规则.}{12}{paragraph*.23}%
+\contentsline {paragraph}{资产时序.}{12}{paragraph*.24}%
+\contentsline {subsection}{\numberline {6.4}评估框架与指标}{13}{subsection.6.4}%
+\contentsline {section}{\numberline {7}装备方案评估（七种单船组合）}{13}{section.7}%
+\contentsline {subsection}{\numberline {7.1}成本模型}{13}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}七种方案的结果}{13}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}成本–效能分析}{14}{subsection.7.3}%
+\contentsline {paragraph}{三个结论.}{14}{paragraph*.29}%
+\contentsline {subsection}{\numberline {7.4}响应延迟的影响}{14}{subsection.7.4}%
+\contentsline {section}{\numberline {8}多资产协同搜索（15 种组合）}{15}{section.8}%
+\contentsline {subsection}{\numberline {8.1}设定}{15}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}结果}{15}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}协调规则与重复扫描}{16}{subsection.8.3}%
+\contentsline {paragraph}{路径规划示例.}{16}{paragraph*.36}%
+\contentsline {paragraph}{增援到位时间.}{17}{paragraph*.38}%
+\contentsline {subsection}{\numberline {8.4}多资产结论}{17}{subsection.8.4}%
+\contentsline {section}{\numberline {9}外推一：加勒比海}{18}{section.9}%
+\contentsline {subsection}{\numberline {9.1}选点标准与结果}{18}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}结果：成功率几乎不变}{19}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}为什么“漂移大 2.5 倍，成功率几乎不变”？}{19}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.4}重要限定}{20}{subsection.9.4}%
+\contentsline {section}{\numberline {10}模型验证与灵敏度分析}{20}{section.10}%
+\contentsline {subsection}{\numberline {10.1}模型验证}{20}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}灵敏度分析汇总}{20}{subsection.10.2}%
+\contentsline {subsection}{\numberline {10.3}局限性与未来工作}{21}{subsection.10.3}%
+\contentsline {section}{\numberline {11}结论与建议}{21}{section.11}%
+\contentsline {subsection}{\numberline {11.1}主要结论}{21}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}对运营公司的建议}{21}{subsection.11.2}%
+\contentsline {subsection}{\numberline {11.3}对监管机构的建议}{22}{subsection.11.3}%
+\contentsline {subsection}{\numberline {11.4}结语}{22}{subsection.11.4}%
+\contentsline {section}{致希腊政府备忘录}{22}{section*.48}%
+\contentsline {paragraph}{一、承认并量化残余风险。}{22}{paragraph*.49}%
+\contentsline {paragraph}{二、建立三重防线。}{22}{paragraph*.50}%
+\contentsline {paragraph}{三、明确搜救能力承诺。}{22}{paragraph*.51}%
+\contentsline {paragraph}{四、强化海域协同与审批条款。}{22}{paragraph*.52}%
+\contentsline {section}{附录 A：AI 使用报告}{25}{section*.54}%
+\contentsline {section}{附录 B：代码结构与复现}{25}{section*.56}%

@@ -1,0 +1,14 @@
+{
+ "n_cases": 60,
+ "k_per_case": 500,
+ "n_particles": 30000,
+ "center_lat": 19.6076,
+ "center_lon": -80.1868,
+ "region_half_km": 2.0,
+ "depth_scale_m": 200.0,
+ "cyl_r_m": 100.0,
+ "cyl_dz_m": 10.0,
+ "seed": 7,
+ "site_tag": "carib",
+ "site": "加勒比海, 小开曼岛 (Little Cayman) 西南, 开曼海槽边缘"
+}

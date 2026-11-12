@@ -1,0 +1,174 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand*\HyPL@Entry[1]{}
+\HyPL@Entry{0<</S/D>>}
+\@writefile{toc}{\contentsline {section}{\numberline {1}问题重述与建模思路}{3}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}题目任务}{3}{subsection.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}三个关键判断}{3}{subsection.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{判断一：这是“搜索问题”，不是“轨迹预测问题”。}{3}{paragraph*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{判断二：搜救开始时位置并非完全未知。}{3}{paragraph*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{判断三：决策变量是“装备组合 + 响应时间”，而不是单一装备。}{3}{paragraph*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}分层架构}{3}{subsection.1.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces 三层模型框架：上层给定初始位置，中层是失效树驱动的集合预报， 下层是搜索与装备决策。层间通过标准化的“初始位置表”和“轨迹集”通信。}}{4}{figure.caption.5}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:framework}{{1}{4}{三层模型框架：上层给定初始位置，中层是失效树驱动的集合预报， 下层是搜索与装备决策。层间通过标准化的“初始位置表”和“轨迹集”通信。}{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4}本文贡献}{4}{subsection.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}模型假设与符号}{4}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}模型假设}{4}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}符号表}{5}{subsection.2.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces 主要符号及其含义（单位）}}{5}{table.caption.6}\protected@file@percent }
+\newlabel{tab:symbols}{{1}{5}{主要符号及其含义（单位）}{table.caption.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}数据与参数}{5}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}地形 (ETOPO 2022)}{5}{subsection.3.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces 主算例海域。(a) 地形与 4$\times $4 km 失事海域、出发点；(b) 海域内海底深度分布 与 30\,000 个失事点的当地海底深度；(c) 海底坡度分布。失事点当地海底深度中位数约 1021 m，坡度中位 16.9°，约 59\% 的点坡度超过 15°。}}{6}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:region}{{2}{6}{主算例海域。(a) 地形与 4$\times $4 km 失事海域、出发点；(b) 海域内海底深度分布 与 30\,000 个失事点的当地海底深度；(c) 海底坡度分布。失事点当地海底深度中位数约 1021 m，坡度中位 16.9°，约 59\% 的点坡度超过 15°。}{figure.caption.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}流场与温盐剖面 (HYCOM GLBy0.08)}{6}{subsection.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces HYCOM 四维流场（主算例）。五个深度层（0/100/300/500/1000 m）的流速与流向、 站点垂向流速剖面、300 m 处流速时间序列、以及被动漂移轨迹（不含随机项）。表层流速 平均约 0.19 m/s、峰值 0.73 m/s，100--500 m 层平均约 0.1 m/s。}}{6}{figure.caption.8}\protected@file@percent }
+\newlabel{fig:current}{{3}{6}{HYCOM 四维流场（主算例）。五个深度层（0/100/300/500/1000 m）的流速与流向、 站点垂向流速剖面、300 m 处流速时间序列、以及被动漂移轨迹（不含随机项）。表层流速 平均约 0.19 m/s、峰值 0.73 m/s，100--500 m 层平均约 0.1 m/s。}{figure.caption.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}潜水器参数}{7}{subsection.3.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces 潜水器主要参数（Triton 3300/6 厂商数据表）}}{7}{table.caption.9}\protected@file@percent }
+\newlabel{tab:vehicle}{{2}{7}{潜水器主要参数（Triton 3300/6 厂商数据表）}{table.caption.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}失效模式与先验}{7}{subsection.3.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces 失效模式树：5 种模式互斥且完备}}{7}{table.caption.10}\protected@file@percent }
+\newlabel{tab:failure}{{3}{7}{失效模式树：5 种模式互斥且完备}{table.caption.10}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces 模型先验分布（全部标注为假设值）}}{7}{table.caption.11}\protected@file@percent }
+\newlabel{tab:prior}{{4}{7}{模型先验分布（全部标注为假设值）}{table.caption.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}数据来源汇总}{8}{subsection.3.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces 数据来源、分辨率与用途}}{8}{table.caption.12}\protected@file@percent }
+\newlabel{tab:data}{{5}{8}{数据来源、分辨率与用途}{table.caption.12}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}定位模型：失联后的位置演化}{8}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}总体框架}{8}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}垂向动力学}{8}{subsection.4.2}\protected@file@percent }
+\newlabel{eq:vertical}{{1}{8}{垂向动力学}{equation.1}{}}
+\newlabel{eq:analytic}{{2}{8}{垂向动力学}{equation.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}浮力异常与等效球}{8}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}水平输运}{9}{subsection.4.4}\protected@file@percent }
+\newlabel{eq:horizontal}{{5}{9}{水平输运}{equation.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}海底接触与库仑滑移}{9}{subsection.4.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces 海底滑移机制（主算例）。(a) 海域坡度与几条滑移路径；(b) 单条滑移路径上 每 20 m 重算的坡度剖面与 $\mu _s$ 停止点；(c) 不同坡度下发生滑移的比例。}}{9}{figure.caption.13}\protected@file@percent }
+\newlabel{fig:slope}{{4}{9}{海底滑移机制（主算例）。(a) 海域坡度与几条滑移路径；(b) 单条滑移路径上 每 20 m 重算的坡度剖面与 $\mu _s$ 停止点；(c) 不同坡度下发生滑移的比例。}{figure.caption.13}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}数值算法}{9}{subsection.4.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}压溃的事后统计}{9}{subsection.4.7}\protected@file@percent }
+\newlabel{sec:crush}{{4.7}{9}{压溃的事后统计}{subsection.4.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.8}验证}{9}{subsection.4.8}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces 定位模型的验证记录}}{10}{table.caption.14}\protected@file@percent }
+\newlabel{tab:verify}{{6}{10}{定位模型的验证记录}{table.caption.14}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}位置不确定性：从 100 m 圆柱到数百平方公里}{10}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}30\,000 条轨迹的分支构成}{10}{subsection.5.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces 位置概率分布（相对失事点）。$t=1$ h 时几乎全部集中在初始 100 m 圆柱附近； 12 h 后沿流场形成“水柱分支 + 表面分支”的双峰结构；96 h 时水柱分支向东北方向扩展 约 30--40 km，表面分支则散布到整个区域（图中截断于 $\pm 60$ km）。}}{10}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:posterior}{{5}{10}{位置概率分布（相对失事点）。$t=1$ h 时几乎全部集中在初始 100 m 圆柱附近； 12 h 后沿流场形成“水柱分支 + 表面分支”的双峰结构；96 h 时水柱分支向东北方向扩展 约 30--40 km，表面分支则散布到整个区域（图中截断于 $\pm 60$ km）。}{figure.caption.15}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}包含域面积}{10}{subsection.5.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces 包含域面积与漂移距离（主算例，30\,000 粒子）}}{11}{table.caption.16}\protected@file@percent }
+\newlabel{tab:area}{{7}{11}{包含域面积与漂移距离（主算例，30\,000 粒子）}{table.caption.16}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces 定位不确定性。(a) 包含域面积 $A_{95}$ 随时间：全部/水柱/沉底三个口径； (b) 目标类别占比随时间；(c) 96 h 深度分布（水柱与沉底分支）。}}{11}{figure.caption.17}\protected@file@percent }
+\newlabel{fig:unc}{{6}{11}{定位不确定性。(a) 包含域面积 $A_{95}$ 随时间：全部/水柱/沉底三个口径； (b) 目标类别占比随时间；(c) 96 h 深度分布（水柱与沉底分支）。}{figure.caption.17}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}三个直接结论}{11}{subsection.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}搜索模型：探测、规划与贝叶斯更新}{11}{section.6}\protected@file@percent }
+\newlabel{sec:search}{{6}{11}{搜索模型：探测、规划与贝叶斯更新}{section.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}探测模型}{11}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{声呐方程.}{11}{paragraph*.18}\protected@file@percent }
+\newlabel{eq:sonar}{{7}{11}{声呐方程}{equation.7}{}}
+\newlabel{eq:W}{{8}{11}{声呐方程}{equation.8}{}}
+\@writefile{toc}{\contentsline {paragraph}{覆盖与探测概率.}{12}{paragraph*.19}\protected@file@percent }
+\newlabel{eq:pod}{{9}{12}{覆盖与探测概率}{equation.9}{}}
+\@writefile{toc}{\contentsline {paragraph}{装备能力矩阵.}{12}{paragraph*.20}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces 装备能力矩阵（估计值）。“—”表示该装备对该类目标不承担搜索。}}{12}{table.caption.21}\protected@file@percent }
+\newlabel{tab:cap}{{8}{12}{装备能力矩阵（估计值）。“—”表示该装备对该类目标不承担搜索。}{table.caption.21}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}贝叶斯更新与“存活概率”}{12}{subsection.6.2}\protected@file@percent }
+\newlabel{eq:bayes}{{10}{12}{贝叶斯更新与“存活概率”}{equation.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}滚动规划与协调}{12}{subsection.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{规划评分.}{12}{paragraph*.22}\protected@file@percent }
+\newlabel{eq:score}{{12}{12}{规划评分}{equation.12}{}}
+\@writefile{toc}{\contentsline {paragraph}{协调规则.}{12}{paragraph*.23}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{资产时序.}{12}{paragraph*.24}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}评估框架与指标}{13}{subsection.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}装备方案评估（七种单船组合）}{13}{section.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}成本模型}{13}{subsection.7.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces 单次事故成本估计（万美元；公开市场量级估计）}}{13}{table.caption.25}\protected@file@percent }
+\newlabel{tab:cost}{{9}{13}{单次事故成本估计（万美元；公开市场量级估计）}{table.caption.25}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}七种方案的结果}{13}{subsection.7.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces 7 种单船装备组合的搜索结果（30\,000 粒子，$t=0$ 立即搜救）}}{13}{table.caption.26}\protected@file@percent }
+\newlabel{tab:schemes}{{10}{13}{7 种单船装备组合的搜索结果（30\,000 粒子，$t=0$ 立即搜救）}{table.caption.26}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces 7 种方案的发现概率曲线 $P(t)$（虚线为 72 h）。M1（侧扫单独）在 38\% 附近 饱和，其余方案在 24--72 h 内陆续升到 85\%--96\%。}}{14}{figure.caption.27}\protected@file@percent }
+\newlabel{fig:schemes}{{7}{14}{7 种方案的发现概率曲线 $P(t)$（虚线为 72 h）。M1（侧扫单独）在 38\% 附近 饱和，其余方案在 24--72 h 内陆续升到 85\%--96\%。}{figure.caption.27}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}成本–效能分析}{14}{subsection.7.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces (a) 按成本排序的 72 h 成功率；(b) 成本–效能散点。拐点出现在 M4 （侧扫+多波束，182 万美元，89.6\%）。}}{14}{figure.caption.28}\protected@file@percent }
+\newlabel{fig:cost}{{8}{14}{(a) 按成本排序的 72 h 成功率；(b) 成本–效能散点。拐点出现在 M4 （侧扫+多波束，182 万美元，89.6\%）。}{figure.caption.28}{}}
+\@writefile{toc}{\contentsline {paragraph}{三个结论.}{14}{paragraph*.29}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}响应延迟的影响}{14}{subsection.7.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces 额外动员延迟对 $P_{72}$ 的影响（主算例）}}{15}{table.caption.30}\protected@file@percent }
+\newlabel{tab:delay}{{11}{15}{额外动员延迟对 $P_{72}$ 的影响（主算例）}{table.caption.30}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces 延迟对 72 h 成功率与期望发现时间的影响。延迟 6 h 就使 M2 从 86.5\% 掉到 58.4\%；M7 的冗余度最高，抗延迟能力最强。}}{15}{figure.caption.31}\protected@file@percent }
+\newlabel{fig:delay}{{9}{15}{延迟对 72 h 成功率与期望发现时间的影响。延迟 6 h 就使 M2 从 86.5\% 掉到 58.4\%；M7 的冗余度最高，抗延迟能力最强。}{figure.caption.31}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}多资产协同搜索（15 种组合）}{15}{section.8}\protected@file@percent }
+\newlabel{sec:multi}{{8}{15}{多资产协同搜索（15 种组合）}{section.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}设定}{15}{subsection.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}结果}{15}{subsection.8.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces 15 种多船/多 AUV 组合的 72 h 成功率（完整表见数据文件）}}{15}{table.caption.32}\protected@file@percent }
+\newlabel{tab:multi}{{12}{15}{15 种多船/多 AUV 组合的 72 h 成功率（完整表见数据文件）}{table.caption.32}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces 15 种组合的 $P(t)$ 曲线（按船数分组，右侧数字为 $P_{72}$）。}}{16}{figure.caption.33}\protected@file@percent }
+\newlabel{fig:multi-curves}{{10}{16}{15 种组合的 $P(t)$ 曲线（按船数分组，右侧数字为 $P_{72}$）。}{figure.caption.33}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}协调规则与重复扫描}{16}{subsection.8.3}\protected@file@percent }
+\newlabel{sec:multi-beta}{{8.3}{16}{协调规则与重复扫描}{subsection.8.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {13}{\ignorespaces 重复扫描惩罚 $\beta $ 的调优（2 艘船场景）}}{16}{table.caption.34}\protected@file@percent }
+\newlabel{tab:beta}{{13}{16}{重复扫描惩罚 $\beta $ 的调优（2 艘船场景）}{table.caption.34}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces 多资产分析的四个视角：(a) AUV 的边际作用；(b) 每 100 万美元带来的 $P_{72}$ 增量（“单船$\to $2 船”为 9.9 个百分点/百万，远高于加 AUV 的 1.3）； (c) 协调负担（资产越多重复扫描率越高）；(d) 成本–效能 Pareto 前沿。}}{16}{figure.caption.35}\protected@file@percent }
+\newlabel{fig:marginal}{{11}{16}{多资产分析的四个视角：(a) AUV 的边际作用；(b) 每 100 万美元带来的 $P_{72}$ 增量（“单船$\to $2 船”为 9.9 个百分点/百万，远高于加 AUV 的 1.3）； (c) 协调负担（资产越多重复扫描率越高）；(d) 成本–效能 Pareto 前沿。}{figure.caption.35}{}}
+\@writefile{toc}{\contentsline {paragraph}{路径规划示例.}{16}{paragraph*.36}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces 示例案例（3 船 + 2 AUV）。(a) 前 12 h 各资产搜索航迹；(b) 1 km 网格被搜索 次数的对数热图——集中的高概率区被多轮补扫，外围较新区域只扫描一次。}}{17}{figure.caption.37}\protected@file@percent }
+\newlabel{fig:multi-plan}{{12}{17}{示例案例（3 船 + 2 AUV）。(a) 前 12 h 各资产搜索航迹；(b) 1 km 网格被搜索 次数的对数热图——集中的高概率区被多轮补扫，外围较新区域只扫描一次。}{figure.caption.37}{}}
+\@writefile{toc}{\contentsline {paragraph}{增援到位时间.}{17}{paragraph*.38}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces 增援到位时间对 $P_{72}$ 的影响（虚线为单船 M4 基线 89.6\%）。}}{17}{figure.caption.39}\protected@file@percent }
+\newlabel{fig:multi-delay}{{13}{17}{增援到位时间对 $P_{72}$ 的影响（虚线为单船 M4 基线 89.6\%）。}{figure.caption.39}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4}多资产结论}{17}{subsection.8.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9}外推一：加勒比海}{18}{section.9}\protected@file@percent }
+\newlabel{sec:carib}{{9}{18}{外推一：加勒比海}{section.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}选点标准与结果}{18}{subsection.9.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {14}{\ignorespaces 两个海域的环境对比}}{18}{table.caption.40}\protected@file@percent }
+\newlabel{tab:twoseas}{{14}{18}{两个海域的环境对比}{table.caption.40}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces 加勒比海算例。(a) 小开曼岛周边地形与 4$\times $4 km 失事海域、出发点； (b) 100 m 层 HYCOM 流场（t=0），可见明显的空间梯度与涡旋结构。}}{18}{figure.caption.41}\protected@file@percent }
+\newlabel{fig:carib-map}{{14}{18}{加勒比海算例。(a) 小开曼岛周边地形与 4$\times $4 km 失事海域、出发点； (b) 100 m 层 HYCOM 流场（t=0），可见明显的空间梯度与涡旋结构。}{figure.caption.41}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces 两个海域的流场对比：(a) 站点剖面流速（加勒比海 0--200 m 明显更强）； (b) 四维流场各深度层 90\% 分位流速（加勒比海 100 m 层约为地中海的 2.4 倍， 但 500--1000 m 层反而更弱）。}}{18}{figure.caption.42}\protected@file@percent }
+\newlabel{fig:carib-current}{{15}{18}{两个海域的流场对比：(a) 站点剖面流速（加勒比海 0--200 m 明显更强）； (b) 四维流场各深度层 90\% 分位流速（加勒比海 100 m 层约为地中海的 2.4 倍， 但 500--1000 m 层反而更弱）。}{figure.caption.42}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}结果：成功率几乎不变}{19}{subsection.9.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {15}{\ignorespaces 7 种单船组合的 $P_{72}$：两个海域对比}}{19}{table.caption.43}\protected@file@percent }
+\newlabel{tab:carib-schemes}{{15}{19}{7 种单船组合的 $P_{72}$：两个海域对比}{table.caption.43}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces 两个海域的搜索结果对比：(a) 7 种方案的 $P_{72}$ 柱状图； (b) 全部 $P(t)$ 曲线（实线地中海、虚线加勒比海）；(c) 时间–成功率散点。 方案排序与结论完全一致。}}{19}{figure.caption.44}\protected@file@percent }
+\newlabel{fig:carib-compare}{{16}{19}{两个海域的搜索结果对比：(a) 7 种方案的 $P_{72}$ 柱状图； (b) 全部 $P(t)$ 曲线（实线地中海、虚线加勒比海）；(c) 时间–成功率散点。 方案排序与结论完全一致。}{figure.caption.44}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}为什么“漂移大 2.5 倍，成功率几乎不变”？}{19}{subsection.9.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces 两个海域的 96 h 漂移距离分布（a）与分位对比（b）。加勒比海的漂移中位数约为 地中海的 2.5 倍，但主要由表面分支贡献。}}{20}{figure.caption.45}\protected@file@percent }
+\newlabel{fig:carib-drift}{{17}{20}{两个海域的 96 h 漂移距离分布（a）与分位对比（b）。加勒比海的漂移中位数约为 地中海的 2.5 倍，但主要由表面分支贡献。}{figure.caption.45}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.4}重要限定}{20}{subsection.9.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {10}模型验证与灵敏度分析}{20}{section.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}模型验证}{20}{subsection.10.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {16}{\ignorespaces 模型验证汇总}}{20}{table.caption.46}\protected@file@percent }
+\newlabel{tab:allverify}{{16}{20}{模型验证汇总}{table.caption.46}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.2}灵敏度分析汇总}{20}{subsection.10.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {17}{\ignorespaces 灵敏度分析汇总（主指标为 $P_{72}$）}}{21}{table.caption.47}\protected@file@percent }
+\newlabel{tab:sensitivity}{{17}{21}{灵敏度分析汇总（主指标为 $P_{72}$）}{table.caption.47}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.3}局限性与未来工作}{21}{subsection.10.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {11}结论与建议}{21}{section.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.1}主要结论}{21}{subsection.11.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.2}对运营公司的建议}{21}{subsection.11.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.3}对监管机构的建议}{22}{subsection.11.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.4}结语}{22}{subsection.11.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{致希腊政府备忘录}{22}{section*.48}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{一、承认并量化残余风险。}{22}{paragraph*.49}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{二、建立三重防线。}{22}{paragraph*.50}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{三、明确搜救能力承诺。}{22}{paragraph*.51}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{四、强化海域协同与审批条款。}{22}{paragraph*.52}\protected@file@percent }
+\bibcite{triton}{1}
+\bibcite{etopo}{2}
+\bibcite{hycom}{3}
+\bibcite{eos80}{4}
+\bibcite{chen}{5}
+\bibcite{lamb}{6}
+\bibcite{urick}{7}
+\bibcite{koopman}{8}
+\bibcite{stone}{9}
+\bibcite{morse}{10}
+\bibcite{okabe}{11}
+\bibcite{erddap}{12}
+\@writefile{toc}{\contentsline {section}{附录 A：AI 使用报告}{25}{section*.54}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{附录 B：代码结构与复现}{25}{section*.56}\protected@file@percent }
+\gdef \@abspage@last{25}

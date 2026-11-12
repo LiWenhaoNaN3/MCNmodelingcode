@@ -1,0 +1,107 @@
+\section{搜索模型：探测、规划与贝叶斯更新}\label{sec:search}
+
+\subsection{探测模型}
+
+\paragraph{声呐方程.} 主动声呐的检测能力由信噪比决定：
+\begin{equation}
+  \mathrm{SN}(R) = \mathrm{SL} - 2\,\mathrm{TL}(R) + \mathrm{TS}
+  - \bigl(\mathrm{NL}-\mathrm{DI}\bigr),
+  \qquad \mathrm{TL}(R)=20\log_{10}R+\alpha R,
+  \label{eq:sonar}
+\end{equation}
+其中 SL 为声源级（dB），TL 为传播损失（dB，$R$ 以 m 计，$\alpha$ 为吸收系数
+dB/m），TS 为目标强度（dB），NL 为噪声级（dB），DI 为指向性指数（dB）。
+给定检测阈值，可把 $\mathrm{SN}(R)$ 转换为探测概率 $p(R)$，并定义\textbf{有效扫宽}
+\begin{equation}
+  W \;=\; 2\int_0^{R_{\max}} p(R)\,dR ,
+  \label{eq:W}
+\end{equation}
+即“一次通过能有效覆盖的横向宽度（m）”。$W$ 与目标类别、海况、装备频率与处理方式有关。
+
+由于题目未给出完整声呐参数，本文不逐项标定式~\eqref{eq:sonar}，而是把 $W$ 作为
+\textbf{装备–目标类别}的输入参数（\tabref{tab:cap}），标注为量级估计。
+灵敏度分析表明结论对 $W$ 的 $\pm30\%$ 变化不敏感（装备排序不变）。
+
+\paragraph{覆盖与探测概率.} 设目标位于面积 $A_c$（km$^2$）的网格内，装备以速度
+$v$（m/s）搜索时间 $\tau$（h），则覆盖倍数为
+\begin{equation}
+  C = \frac{W\, v\, \tau}{A_c},\qquad \mathrm{POD} = 1-e^{-C}.
+  \label{eq:pod}
+\end{equation}
+式~\eqref{eq:pod} 是标准随机搜索模型，$C=1$ 时 POD=63\%，$C=3$ 时 95\%。
+
+\paragraph{装备能力矩阵.} \tabref{tab:cap} 给出 5 类装备对三类目标的扫宽、速度与
+最大工作深度。关键假设有三条：
+（1）\textbf{深水拖曳侧扫只搜海底}（侧扫成像是海底面，看不到水柱目标）；
+（2）\textbf{深水多波束需具备水柱成像（WCI）功能才能搜水柱}，且水柱扫宽保守取 120 m
+（约为海底扫宽的 1/4），不用于水面；
+（3）\textbf{ROV 不承担面积搜索}，只做发现后的确认与救援。
+
+\begin{table}[H]
+\centering\small
+\caption{装备能力矩阵（估计值）。“—”表示该装备对该类目标不承担搜索。}
+\label{tab:cap}
+\begin{tabular}{@{}lrrrrrl@{}}
+\toprule
+装备 & 搜索速度 & 转场速度 & 水面 $W$ & 水柱 $W$ & 海底 $W$ & 最大深度\\
+\midrule
+水面雷达/目视 & 5 kn & 5 kn & 3000 m & — & — & 水面\\
+深水拖曳侧扫 & 1.5 kn & 10 kn & — & — & 200 m & 2000 m\\
+深水多波束 (WCI) & 2.5 kn & 10 kn & — & 120 m & 500 m & 3000 m\\
+AUV & 3 kn & 3 kn & — & 120 m & 200 m & 2000 m\\
+工作级 ROV & 0.5 kn & 10 kn & — & — & — & 3000 m\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{贝叶斯更新与“存活概率”}
+
+对每个案例，取该案例的 500 个粒子作为先验（它们同时是该案例的蒙特卡洛真值）。
+给每个粒子一个存活概率 $S_i$（尚未被发现的概率，初值 1）。当某装备搜索了类别 $c$、
+网格 $k$ 时，所有“类别为 $c$、位置在网格 $k$、深度不超过该装备最大工作深度”的粒子
+按覆盖倍数衰减：
+\begin{equation}
+  S_i \;\leftarrow\; S_i \cdot e^{-C}, \qquad i\in\{c,k\}.
+  \label{eq:bayes}
+\end{equation}
+于是已发现概率为
+\begin{equation}
+  P(t)=1-\frac{1}{N}\sum_{i=1}^{N}S_i(t),
+\end{equation}
+粒子的后验权重为 $S_i/\sum_j S_j$。式~\eqref{eq:bayes} 是贝叶斯更新的指数形式：
+探测概率 $1-e^{-C}$ 对应未探测概率 $e^{-C}$，多次独立搜索可直接连乘。
+
+\subsection{滚动规划与协调}
+
+\paragraph{规划评分.} 每小时，对每台可用装备在“能力范围内的三类目标”上计算
+\begin{equation}
+  \mathrm{score}(k,c)=\frac{p_{k,c}}{\bigl(t_{\rm transit}+t_{\rm search}\bigr)
+  \bigl(1+\beta\,\bar C_{k,c}\bigr)},
+  \qquad t_{\rm search}=\frac{A_c}{W_c\,v},
+  \label{eq:score}
+\end{equation}
+其中 $p_{k,c}$ 为网格 $k$、类别 $c$ 的当前后验概率，$t_{\rm transit}$ 为转场时间
+（用转场速度算），$\bar C_{k,c}$ 为该格累计覆盖倍数，$\beta$ 为重复扫描惩罚系数。
+取最高分网格执行搜索，直到本小时用完。
+
+\paragraph{协调规则.} 多资产时采用两条规则避免“扎堆”：
+（1）\textbf{小时内认领}：同一小时内一个格子只派给一台装备（\texttt{claimed} 集合），
+装备动作串行化；
+（2）\textbf{重复扫描惩罚}（$\beta$）：搜过的格子 score 被 $(1+\beta\bar C)$ 压低。
+$\beta$ 的调优见 §\ref{sec:multi-beta}：$\beta=1$ 时成功率只降 0.6 个百分点，
+跨小时重复扫描率从 35.6\% 降到 27.5\%。
+
+\paragraph{资产时序.} 单船方案中除雷达外装备从出发岛（11.3 km 外）出发；
+多船方案中 $t=0$ 只有母船，增援船与 AUV 在 3 h 后到位（§\ref{sec:multi} 给出
+0/3/6/12 h 敏感性）。
+
+\subsection{评估框架与指标}
+
+\begin{enumerate}[leftmargin=1.8em,itemsep=0pt]
+\item 真值集：30\,000 粒子 = 60 个独立案例 $\times$ 500 粒子；
+\item 每个案例用其 500 个粒子做先验、规划与更新；60 个案例平均得到总体指标；
+\item 指标：$P_{24},P_{48},P_{72},P_{96}$（小时末累计发现概率）、中位发现时间 $T_{50}$、
+      期望发现时间 $\mathbb E[T]=\sum_{t=0}^{95}\bigl(1-P(t)\bigr)\Delta t$（截断 96 h）；
+\item 蒙特卡洛误差：60 个独立案例、30\,000 粒子，$P_{72}$ 的抽样标准误约
+      $0.3$--$0.6$ 个百分点。
+\end{enumerate}

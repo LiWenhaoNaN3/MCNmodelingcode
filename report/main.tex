@@ -1,0 +1,154 @@
+\documentclass[UTF8,11pt,a4paper]{ctexart}
+
+% ---------------- 页面与字体 ----------------
+\usepackage[margin=1.9cm,top=1.8cm,bottom=1.8cm]{geometry}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{graphicx}
+\usepackage{booktabs,array,multirow,tabularx}
+\usepackage{caption,subcaption}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage[colorlinks=true,linkcolor=blue!55!black,citecolor=blue!55!black,
+            urlcolor=blue!55!black]{hyperref}
+\graphicspath{{../figs/}{figs/}}
+\captionsetup{font=footnotesize,labelfont=bf,labelsep=quad}
+\linespread{1.10}
+\setlength{\parskip}{1pt}
+\setlength{\parindent}{2em}
+\ctexset{
+  section/format = \Large\bfseries,
+  subsection/format = \large\bfseries,
+  subsubsection/format = \normalsize\bfseries,
+}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 2024 MCM Problem B}
+\fancyhead[R]{\small 定位 · 搜索 · 装备 · 外推}
+\fancyfoot[C]{\small \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcommand{\figref}[1]{图~\ref{#1}}
+\newcommand{\tabref}[1]{表~\ref{#1}}
+\newcommand{\km}{\,\mathrm{km}}
+\newcommand{\kmsq}{\,\mathrm{km}^2}
+\newcommand{\mw}{\,\mathrm{m/s}}
+\newcommand{\dw}{{\times}10^{4}}
+
+\begin{document}
+
+% ============================================================
+% 摘要页 (Summary Sheet)
+% ============================================================
+\begin{center}
+{\LARGE\bfseries 小型旅游潜水器失联后的定位、搜救与装备配置模型}\\[3mm]
+{\large —— 基于四维流场、失效树蒙特卡洛与协同搜索的决策框架}\\[5mm]
+{\normalsize 2024 MCM Problem B: Searching for Submersibles}
+\end{center}
+
+\vspace{2mm}
+\noindent\textbf{问题.}
+一艘可载 6 人的旅游潜水器（额定潜深 1000 m）在伊奥尼亚海一处小岛外海失联。
+题目要求：\textbf{(1) 定位}：建立潜水器失联后位置随时间的演化模型；
+\textbf{(2) 搜救}：建立搜索模型，给出发现概率随时间的曲线；
+\textbf{(3) 装备}：为公司推荐搜索装备配置（时间–成功率–成本权衡）；
+\textbf{(4) 外推}：把模型推广到其他海域以及其他潜水器。
+
+\vspace{1.5mm}
+\noindent\textbf{方法.}
+我们把问题分解为三层，层与层之间只通过"初始位置集成"与"轨迹"接口通信：
+\begin{enumerate}[leftmargin=1.6em,itemsep=0pt,topsep=1pt]
+\item \textbf{上层（给定输入）}：失事海域 4$\times$4 km 内水平均匀、深度服从
+     特征尺度 200 m 的指数分布；搜救方知道目标在半径 100 m、垂直 $\pm$10 m 的圆柱内。
+\item \textbf{定位层}：对 30\,000 个粒子（60 个独立案例 $\times$ 500 粒子）用
+      失效树（5 种失效模式）、浮力异常、四维 HYCOM 流场（0--96 h）与 ETOPO 地形
+      驱动 96 h 演化，含海底接触、库仑滑移与"事后压溃"统计。
+\item \textbf{搜索/装备层}：用声呐方程给出各装备对水面/水柱/海底三类目标的扫宽，
+      逐小时滚动规划 + 贝叶斯更新 + 小时内认领与重复扫描惩罚，对 7 种单船装备组合与
+      15 种多船/多 AUV 协同组合做蒙特卡洛仿真，输出 24/48/72/96 h 成功率、
+      中位/期望发现时间与成本。
+\end{enumerate}
+
+\vspace{1.5mm}
+\noindent\textbf{主要结果.}
+\begin{itemize}[leftmargin=1.6em,itemsep=0pt,topsep=1pt]
+\item \textbf{定位不确定性}：95\% 包含域 $A_{95}$ 由 1 h 的 $56\km^2$ 增至 24 h 的
+      $2\,104\km^2$、96 h 的 $27\,652\km^2$；其中水柱分支 96 h 为 $1\,360\km^2$，
+      沉底分支仅 $120\km^2$。响应时间每推迟 24 h，需要搜索的面积扩大一个量级。
+\item \textbf{七种单船装备组合}（72 h 成功率）：侧扫 38.2\%、多波束 86.5\%、AUV 78.9\%、
+      侧扫+多波束 89.6\%、侧扫+AUV 84.5\%、多波束+AUV 94.3\%、三件套 95.5\%。
+      结论：\textbf{"能否搜索水柱"是分水岭}；侧扫单独不可行。
+\item \textbf{成本–效能拐点}：母船按 \textbf{侧扫+多波束} 配置（约 182 万美元）即达 89.6\%，
+      是性价比最高的一档；要求 $\ge95\%$ 需三件套（约 239 万美元）。
+\item \textbf{多资产协同}：15 种"船数 2--4 $\times$ AUV 数 0--4"组合中，
+      \textbf{增加一艘同配置船}（252 万，96.6\%）是性价比最高的一步；
+      "2 船 + 2 台 AUV"（366 万）达 98.9\%，是"高保障"甜点；
+      4 船 + 4 AUV（620 万）仅 99.9\%，边际收益趋零。协调规则使同小时重复扫描率严格为 0，
+      跨小时重复率由 35.6\% 压到 27.5\%（成功率只降 0.6 个百分点）。
+\item \textbf{加勒比海外推}：在"小开曼岛西南、开曼海槽边缘"（距岛 8.3 km、4$\times$4 km 内
+      水深 888/1088/1557 m、中位坡度 16°、表层流速 0.47 m/s）重建同一套模型，
+      7 种方案的 72 h 成功率与地中海相差不超过 2.4 个百分点、排序完全相同，
+      说明\textbf{装备决策结论可迁移}；但本模型的"完美预报"假设会使加勒比海结果偏乐观。
+\end{itemize}
+
+\vspace{1mm}
+\noindent\textbf{关键词：}潜水器失联；四维流场；集合预报；贝叶斯搜索；声呐扫宽；
+多资产协同；成本–效能；加勒比海
+
+\newpage
+
+% ============================================================
+% 目录
+% ============================================================
+\setcounter{tocdepth}{1}
+\tableofcontents
+\newpage
+
+% ============================================================
+% 正文
+% ============================================================
+\input{sections/01_problem}
+\input{sections/02_assumptions}
+\input{sections/03_data}
+\input{sections/04_locate}
+\input{sections/05_uncertainty}
+\input{sections/06_search}
+\input{sections/07_equipment}
+\input{sections/08_multi}
+\input{sections/09_carib}
+\input{sections/10_validation}
+\input{sections/11_conclusion}
+
+% ============================================================
+% 参考文献
+% ============================================================
+\newpage
+\begin{thebibliography}{99}\small
+\setlength{\itemsep}{0pt}
+\bibitem{triton} Triton Submarines. \emph{Triton 3300/6 Submersible Datasheet}, 2021.
+\bibitem{etopo} NOAA National Centers for Environmental Information. ETOPO 2022
+  15 Arc-Second Global Relief Model, 2022. \url{https://www.ncei.noaa.gov/products/etopo-global-relief-model}
+\bibitem{hycom} HYCOM Consortium. Global Ocean Forecast System (GLBy0.08) data,
+  accessed via NCSS/OPeNDAP, 2024.
+\bibitem{eos80} Fofonoff N. P., Millard R. C. \emph{Algorithms for the computation of
+  fundamental properties of seawater}. UNESCO Technical Papers in Marine Science 44, 1983.
+\bibitem{chen} Chen C.-T., Millero F. J. Speed of sound in seawater at high pressures.
+  \emph{J. Acoust. Soc. Am.}, 62(5):1129--1135, 1977.
+\bibitem{lamb} Lamb H. \emph{Hydrodynamics}, 6th ed. Cambridge University Press, 1932.
+\bibitem{urick} Urick R. J. \emph{Principles of Underwater Sound}, 3rd ed. McGraw-Hill, 1983.
+\bibitem{koopman} Koopman B. O. \emph{Search and Screening}. Pergamon Press, 1980.
+\bibitem{stone} Stone L. D. \emph{Theory of Optimal Search}. Academic Press, 1975.
+\bibitem{morse} Morse P. M., Feshbach H. \emph{Methods of Theoretical Physics}. McGraw-Hill, 1953.
+\bibitem{okabe} Okabe M., Ito K. Color universal design (CUD), 2008.
+\bibitem{erddap} Simons R. A. ERDDAP: gridded data server, NOAA NMFS/SWFSC, 2024.
+\end{thebibliography}
+
+% ============================================================
+% 附录
+% ============================================================
+\newpage
+\appendix
+\input{sections/appendix}
+
+\end{document}

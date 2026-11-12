@@ -1,5 +1,15 @@
 # v2 —— 数据溯源完整的重建版
 
+> **v3 进展（P1+P2 已完成，待审）**：在 v2 的实测数据与 EOS 基础上，新增概率定位模型
+> （失效树混合先验 + 垂向解析动力学 + 20 000 样本蒙特卡洛集合 + 后验/包含域），
+> 流场升级为**四维（时间 × 深度 × 空间）**，压溃改为**事后统计**。
+> 方案见 `docs/建模方案_v3.md`，本轮结果与待确认事项见 `docs/阶段P2结果.md`。
+> 新命令：`python run.py p2`（自检 + 集合预报 + 后验 + 图 F3–F6，约 15 s，离线）；
+> `python run.py field`（图 G1 四维流场 / G2 坡度与滑移，约 4 s）；
+> `python run.py fetch4d`（抓取 HYCOM 四维场，约 2 分钟，已入库）。
+> 新增模块：`src/data.py`、`src/locate.py`、`src/posterior.py`、`src/plotmpl.py`、
+> `src/figs_p2.py`、`src/figs_field.py`。
+
 ## 一句话
 
 所有环境量来自 ETOPO / HYCOM 实测; 查不到的量 (Δρ、μ_s、z0、W、v、w0) **不赋值**, 留作函数参数。
